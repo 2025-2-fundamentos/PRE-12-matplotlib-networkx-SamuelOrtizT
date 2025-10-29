@@ -59,9 +59,7 @@ def count_country_frequency(affiliations):
     countries = countries.str.split(", ")
     countries = countries.explode()
     countries = countries.value_counts()
-    #
     countries.to_csv("files/countries.csv")
-    #
     return countries
 
 
@@ -103,9 +101,7 @@ def compute_co_occurrences(affiliations, most_frequent_countries):
         as_index=False,
     ).size()
 
-    #
     co_occurrences.to_csv("files/co_occurrences.csv")
-    #
 
     return co_occurrences
 
@@ -118,7 +114,7 @@ def plot_country_collaboration(countries, co_occurrences):
     for _, row in co_occurrences.iterrows():
         G.add_edge(row["node_a"], row["node_b"], weight=row["size"])
 
-    pos = nx.spring_layout(G)
+    pos = nx.spring_layout(G) #Diccionario con clave = país y valor = coordenadas del nodo
 
     countries_list = list(G)
     node_size = countries[countries_list].values
@@ -162,4 +158,4 @@ def make_plot(n_countries):
 
 
 if __name__ == "__main__":
-    make_plot(n_countries=20)
+    make_plot(n_countries=30)
